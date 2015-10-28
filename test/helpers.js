@@ -1,9 +1,8 @@
-wd = require('wd');
-require('colors');
-var _ = require("lodash");
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
-// var browser;
+var wd = require('wd'),
+    _ = require("lodash"),
+    chai = require("chai"),
+    chaiAsPromised = require("chai-as-promised");
+
 chai.use(chaiAsPromised);
 chai.should();
 chaiAsPromised.transferPromiseness = wd.transferPromiseness;
@@ -17,9 +16,9 @@ wd.configureHttp({
 function beforeEachExample(done) {
     var username = process.env.SAUCE_USERNAME;
     var accessKey = process.env.SAUCE_ACCESS_KEY;
-    browser = wd.promiseChainRemote("ondemand.saucelabs.com", 80, username, accessKey);
+    driver = wd.promiseChainRemote("ondemand.saucelabs.com", 80, username, accessKey);
 
-    browser
+    driver
         .init({
             name: this.currentTest.title,
             browserName: '',
@@ -34,7 +33,7 @@ function beforeEachExample(done) {
 
 function afterEachExample(done) {
     // allPassed = allPassed && (this.currentTest.state === 'passed');
-    browser
+    driver
         .quit()
         .sauceJobStatus(true)
         .nodeify(done);
@@ -42,7 +41,7 @@ function afterEachExample(done) {
 
 function makeSuite(desc, cb) {
     describe(desc, function() {
-        var browser;
+        var driver;
 
         this.timeout(240000);
 

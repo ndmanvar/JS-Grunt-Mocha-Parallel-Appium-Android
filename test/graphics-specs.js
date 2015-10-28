@@ -3,7 +3,7 @@ var makeSuite = require('./helpers').makeSuite;
 makeSuite('Test Suite 1', function() {
 
   it('should verify click Arcs Graphics', function() {
-    browser
+    driver
       .elementByAccessibilityId('Graphics')
       .click()
       .elementByAccessibilityId('Arcs')
